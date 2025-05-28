@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/miyatahiroshi/python/lecture-ai-engineering/mlruns/0/ff2f37b2c6c54306923834e5723c18f1/artifacts
+end_time: 1748414883717
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: ff2f37b2c6c54306923834e5723c18f1
+run_name: placid-fox-814
+run_uuid: ff2f37b2c6c54306923834e5723c18f1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748414883711
+status: 3
+tags: []
+user_id: miyatahiroshi

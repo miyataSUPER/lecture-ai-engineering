@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/miyatahiroshi/python/lecture-ai-engineering/mlruns/0/b983ed1b84be4ceaa28506381aa814ff/artifacts
+end_time: 1748414922140
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b983ed1b84be4ceaa28506381aa814ff
+run_name: thoughtful-shrew-912
+run_uuid: b983ed1b84be4ceaa28506381aa814ff
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748414922135
+status: 3
+tags: []
+user_id: miyatahiroshi

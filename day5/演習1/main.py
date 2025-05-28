@@ -15,7 +15,7 @@ from mlflow.models.signature import infer_signature
 # データ準備
 def prepare_data(test_size=0.2, random_state=42):
     # Titanicデータセットの読み込み
-    path = "data/Titanic.csv"
+    path = "day5/演習1/data/Titanic.csv"
     data = pd.read_csv(path)
 
     # 必要な特徴量の選択と前処理
@@ -41,10 +41,14 @@ def prepare_data(test_size=0.2, random_state=42):
 
 # 学習と評価
 def train_and_evaluate(
-    X_train, X_test, y_train, y_test, n_estimators=100, max_depth=None, random_state=42
+    X_train, X_test, y_train, y_test, n_estimators=200, max_depth=10, random_state=42
 ):
     model = RandomForestClassifier(
-        n_estimators=n_estimators, max_depth=max_depth, random_state=random_state
+        n_estimators=n_estimators,
+        max_depth=max_depth,
+        random_state=random_state,
+        min_samples_split=5,
+        min_samples_leaf=2
     )
     model.fit(X_train, y_train)
     predictions = model.predict(X_test)

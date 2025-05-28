@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/miyatahiroshi/python/lecture-ai-engineering/mlruns/0/7781f885ab7f40c38c11f209f8e13d93/artifacts
+end_time: 1748414830090
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 7781f885ab7f40c38c11f209f8e13d93
+run_name: useful-colt-833
+run_uuid: 7781f885ab7f40c38c11f209f8e13d93
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748414830084
+status: 3
+tags: []
+user_id: miyatahiroshi
