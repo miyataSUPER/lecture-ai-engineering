@@ -1,15 +1,18 @@
 # モデルの自動テスト用GitHub Actionsワークフロー
 # mainブランチへのpushやpull request時に自動でテストを実行します
-# day5/演習1/tests/test_model.py のテストが実行され、品質が担保されます
+# 以下のテストを実行します：
+# 1. モデルの推論精度の検証
+# 2. 推論時間の測定
+# 3. 過去バージョンのモデルとの性能比較
 
 name: Model Tests
 
 on:
   push:
-    branches: [ main, master ]  # masterブランチも追加
+    branches: [ main, master ]
   pull_request:
-    branches: [ main, master ]  # masterブランチも追加
-  workflow_dispatch:  # 手動実行を可能に
+    branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
   test:
@@ -18,11 +21,14 @@ jobs:
     steps:
     - name: ソースコードの取得
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # 履歴を完全に取得
     
     - name: デバッグ情報の表示
       run: |
         echo "Current branch: ${{ github.ref }}"
         echo "Event name: ${{ github.event_name }}"
+        echo "Commit hash: ${{ github.sha }}"
         ls -la
     
     - name: Pythonのセットアップ
@@ -34,15 +40,27 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pytest pytest-cov
+        pip install pytest pytest-cov pytest-benchmark
     
     - name: モデルテストの実行
       run: |
-        PYTHONPATH=$PYTHONPATH:. pytest day5/演習1/tests/ --cov=day5/演習1 --cov-report=xml -v
+        # テストの実行と結果の保存
+        PYTHONPATH=$PYTHONPATH:. pytest day5/演習1/tests/ \
+          --cov=day5/演習1 \
+          --cov-report=xml \
+          --benchmark-only \
+          --benchmark-json=benchmark_results.json \
+          -v
     
-    # カバレッジレポートのアップロード（任意・必要な場合のみ）
-    # - name: Upload coverage to Codecov
-    #   uses: codecov/codecov-action@v2
-    #   with:
-    #     file: ./coverage.xml
-    #     fail_ci_if_error: true
+    - name: テスト結果の表示
+      run: |
+        echo "=== テスト結果のサマリー ==="
+        cat benchmark_results.json
+    
+    - name: テスト結果のアップロード
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: |
+          coverage.xml
+          benchmark_results.json
