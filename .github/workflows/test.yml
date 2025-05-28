@@ -6,9 +6,10 @@ name: Model Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]  # masterブランチも追加
   pull_request:
-    branches: [ main ]
+    branches: [ main, master ]  # masterブランチも追加
+  workflow_dispatch:  # 手動実行を可能に
 
 jobs:
   test:
@@ -17,6 +18,12 @@ jobs:
     steps:
     - name: ソースコードの取得
       uses: actions/checkout@v2
+    
+    - name: デバッグ情報の表示
+      run: |
+        echo "Current branch: ${{ github.ref }}"
+        echo "Event name: ${{ github.event_name }}"
+        ls -la
     
     - name: Pythonのセットアップ
       uses: actions/setup-python@v2
@@ -31,7 +38,7 @@ jobs:
     
     - name: モデルテストの実行
       run: |
-        PYTHONPATH=$PYTHONPATH:. pytest day5/演習1/tests/ --cov=day5/演習1 --cov-report=xml
+        PYTHONPATH=$PYTHONPATH:. pytest day5/演習1/tests/ --cov=day5/演習1 --cov-report=xml -v
     
     # カバレッジレポートのアップロード（任意・必要な場合のみ）
     # - name: Upload coverage to Codecov
